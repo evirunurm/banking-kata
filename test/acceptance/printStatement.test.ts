@@ -1,19 +1,25 @@
 import {Account} from "../../src/core/account";
 import {Console} from "../../src/core/console";
 import {TransactionRepository} from "../../src/core/transactionRepository";
+import {StatementPrinter} from "../../src/core/statementPrinter";
+import {Clock} from "../../src/core/clock";
 
 describe("Print Statement", () => {
     let account: Account
+    let repository: TransactionRepository
+    let statementPrinter: StatementPrinter
     let console: Console
-    let consoleSpy: jest.SpyInstance
+
 
     beforeEach(() => {
         console = new Console()
-        consoleSpy = jest.spyOn(console, 'log')
-        account = new Account(new TransactionRepository())
+        repository = new TransactionRepository(new Clock())
+        statementPrinter = new StatementPrinter()
+        account = new Account(repository, statementPrinter)
     });
 
     it("should print to console all deposits and withdraws made", () => {
+        const consoleSpy = jest.spyOn(console, 'log')
         account.deposit(100)
         account.withdraw(50)
         account.deposit(50)

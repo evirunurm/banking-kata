@@ -13,7 +13,7 @@ export class Account {
     }
 
     public withdraw(amount: number): void {
-        this.transactionRepository.addWithdraw(amount)
+        this.transactionRepository.addWithdrawal(amount)
     }
 
     public printStatement(): void {

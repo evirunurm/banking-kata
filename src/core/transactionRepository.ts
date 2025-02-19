@@ -1,13 +1,24 @@
+import {Transaction} from "./transaction";
+import {Clock} from "./clock";
+
 export class TransactionRepository {
+    private transactions: Transaction[] = [];
+
+    constructor(private clock: Clock) {}
+
     public addDeposit(deposit: number): void {
-
+        this.transactions.push(
+            new Transaction(deposit, this.clock.now(), deposit)
+        );
     }
 
-    public addWithdraw(withdraw: number): void {
-
+    public addWithdrawal(withdraw: number): void {
+        this.transactions.push(
+            new Transaction(-withdraw, this.clock.now(), -withdraw)
+        );
     }
 
-    getAllTransactions(): number[] {
-        return [];
+    getAllTransactions(): Transaction[] {
+        return this.transactions;
     }
 }

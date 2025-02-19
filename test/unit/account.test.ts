@@ -1,6 +1,8 @@
 import {Account} from "../../src/core/account";
 import {TransactionRepository} from "../../src/core/transactionRepository";
 import {StatementPrinter} from "../../src/core/statementPrinter";
+import {Clock} from "../../src/core/clock";
+import {Transaction} from "../../src/core/transaction";
 
 describe("Account", () => {
     let account: Account
@@ -9,7 +11,7 @@ describe("Account", () => {
 
     beforeEach(() => {
         statementPrinter = new StatementPrinter()
-        repository = new TransactionRepository()
+        repository = new TransactionRepository(new Clock())
         account = new Account(repository, statementPrinter)
     });
 
@@ -22,7 +24,7 @@ describe("Account", () => {
     });
 
     it("should withdraw money", () => {
-        const addWithdrawSpy = jest.spyOn(repository, 'addWithdraw')
+        const addWithdrawSpy = jest.spyOn(repository, 'addWithdrawal')
 
         account.withdraw(100)
 
@@ -31,7 +33,11 @@ describe("Account", () => {
 
     it("prints the statement", () => {
         const printStatementSpy = jest.spyOn(statementPrinter, 'print')
-        const transactions = [100, -50, 200]
+        const transactions = [
+            new Transaction(100, '2/04/2024', 100),
+            new Transaction(-50, '2/04/2024', 50),
+            new Transaction(-50, '2/04/2024', 0),
+        ]
         repository.getAllTransactions = () => transactions
 
         account.printStatement()
