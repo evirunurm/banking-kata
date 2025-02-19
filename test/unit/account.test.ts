@@ -1,13 +1,16 @@
 import {Account} from "../../src/core/account";
 import {TransactionRepository} from "../../src/core/transactionRepository";
+import {StatementPrinter} from "../../src/core/statementPrinter";
 
 describe("Account", () => {
     let account: Account
     let repository: TransactionRepository
+    let statementPrinter: StatementPrinter
 
     beforeEach(() => {
+        statementPrinter = new StatementPrinter()
         repository = new TransactionRepository()
-        account = new Account(repository)
+        account = new Account(repository, statementPrinter)
     });
 
     it("should deposit money", () => {
@@ -24,5 +27,15 @@ describe("Account", () => {
         account.withdraw(100)
 
         expect(addWithdrawSpy).toHaveBeenCalledWith(100)
+    });
+
+    it("prints the statement", () => {
+        const printStatementSpy = jest.spyOn(statementPrinter, 'print')
+        const transactions = [100, -50, 200]
+        repository.getAllTransactions = () => transactions
+
+        account.printStatement()
+
+        expect(printStatementSpy).toHaveBeenCalledWith(transactions)
     });
 })

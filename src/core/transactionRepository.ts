@@ -6,4 +6,8 @@ export class TransactionRepository {
     public addWithdraw(withdraw: number): void {
 
     }
+
+    getAllTransactions(): number[] {
+        return [];
+    }
 }
