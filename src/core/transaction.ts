@@ -1,11 +1,6 @@
 export class Transaction {
-    public amount: number;
-    public date: string;
-    public balance: number;
-
-    constructor(amount: number, date: string, balance: number) {
+    constructor(public amount: number, public date: string) {
         this.amount = amount;
         this.date = date;
-        this.balance = balance;
     }
 }

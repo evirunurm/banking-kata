@@ -12,26 +12,26 @@ describe("Transaction Repository", () => {
     });
 
     it("should add deposit for a given amount", () => {
-        const transactionDate = new Date().toDateString()
-        clock.now = () => new Date(transactionDate).toDateString()
+        const transactionDate = '19/02/2025'
+        clock.todayAsString = () => transactionDate
 
         repository.addDeposit(100)
 
         expect(repository.getAllTransactions())
             .toEqual(
-            [new Transaction(100, transactionDate, 100)]
+            [new Transaction(100, transactionDate)]
         )
     })
 
     it ("should add withdraw", () => {
-        const transactionDate = new Date().toDateString()
-        clock.now = () => new Date(transactionDate).toDateString()
+        const transactionDate = '19/02/2025'
+        clock.todayAsString = () => transactionDate
 
         repository.addWithdrawal(100)
 
         expect(repository.getAllTransactions())
             .toEqual(
-                [new Transaction(-100, transactionDate, -100)]
+                [new Transaction(-100, transactionDate)]
             )
     })
 })

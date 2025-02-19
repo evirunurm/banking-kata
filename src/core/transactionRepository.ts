@@ -8,13 +8,13 @@ export class TransactionRepository {
 
     public addDeposit(deposit: number): void {
         this.transactions.push(
-            new Transaction(deposit, this.clock.now(), deposit)
+            new Transaction(deposit, this.clock.todayAsString())
         );
     }
 
     public addWithdrawal(withdraw: number): void {
         this.transactions.push(
-            new Transaction(-withdraw, this.clock.now(), -withdraw)
+            new Transaction(-withdraw, this.clock.todayAsString())
         );
     }
 
