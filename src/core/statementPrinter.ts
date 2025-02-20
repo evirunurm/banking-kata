@@ -9,8 +9,12 @@ export class StatementPrinter {
 
     print(transactions: Transaction[]) {
         this.printHeader()
+        this.printTransactions(transactions)
+    }
+
+    private printTransactions(transactions: Transaction[]) {
         transactions
-            .reverse()
+            // .reverse()
             .reduce((balance, transaction) => {
                 balance += transaction.amount
                 this.printTransaction(transaction, balance)

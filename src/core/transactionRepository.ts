@@ -7,18 +7,20 @@ export class TransactionRepository {
     constructor(private clock: Clock) {}
 
     public addDeposit(deposit: number): void {
-        this.transactions.push(
-            new Transaction(deposit, this.clock.todayAsString())
-        );
+        this.saveTransaction(deposit);
     }
 
     public addWithdrawal(withdraw: number): void {
-        this.transactions.push(
-            new Transaction(-withdraw, this.clock.todayAsString())
-        );
+        this.saveTransaction(-withdraw);
     }
 
-    getAllTransactions(): Transaction[] {
+    public getAllTransactions(): Transaction[] {
         return this.transactions;
+    }
+
+    private saveTransaction(amount: number): void {
+        this.transactions.push(
+            new Transaction(amount, this.clock.todayAsString())
+        );
     }
 }

@@ -8,5 +8,5 @@ export class Clock {
         });
     }
 
-    protected today= () => new Date();
+    today= () => new Date();
 }

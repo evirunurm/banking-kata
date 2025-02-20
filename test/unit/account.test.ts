@@ -33,6 +33,8 @@ describe("Account", () => {
     });
 
     it("prints the statement", () => {
+        // Stubbing the getAllTransactions method
+        // Spying on the print method, to check that account calls it with the correct transactions
         const printStatementSpy = jest.spyOn(statementPrinter, 'print')
         const transactions = [
             new Transaction(100, '2/04/2024'),
